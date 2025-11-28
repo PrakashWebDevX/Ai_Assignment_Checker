@@ -1,0 +1,94 @@
+1️⃣ Current login method: Google Sign-in
+2️⃣ Runtime error displayed:
+
+[plugin:runtime-error-plugin] Firebase: Error (auth/invalid-api-key)
+
+
+3️⃣ Root cause:
+
+Invalid or missing Firebase API key in the deployed environment
+
+Auth domain mismatch
+
+Restricted API Key
+
+Public key not added correctly in replit env variables
+
+4️⃣ Need to implement Phone Number authentication instead of Google login.
+
+📌 Requirements
+🔧 Functional Requirements
+ID	Requirement	Priority
+F1	Fix Firebase API Key authentication issue	High
+F2	Enable Phone Number OTP Login	High
+F3	Add Firebase Recaptcha verifier	High
+F4	Save user profile to Firebase DB on first login	Medium
+F5	Logout functionality	Medium
+🔐 Non-Functional Requirements
+Requirement	Description
+Security	API keys stored in environment variables, not in source code
+Scalability	Allow multiple users with rate limiting
+UX	Simple 2-step login interface
+📁 Technical Solution
+1️⃣ Fix API Key Issue
+
+Checklist:
+✔ Add correct Firebase Web App Config from console
+✔ Enable Authentication → Phone in Firebase Console
+✔ API key must be unrestricted for Auth
+✔ In Replit Secrets, add:
+
+VITE_FIREBASE_API_KEY=your_api_key
+
+2️⃣ Updated Firebase Config (Example)
+import { initializeApp } from "firebase/app";
+import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+export const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+auth.languageCode = "en";
+
+3️⃣ Phone Number Login Code
+export const setupRecaptcha = () => {
+  window.recaptchaVerifier = new RecaptchaVerifier(
+    "recaptcha-container",
+    { size: "invisible" },
+    auth
+  );
+};
+
+export const sendOTP = async (phone: string) => {
+  setupRecaptcha();
+  const appVerifier = window.recaptchaVerifier;
+  return signInWithPhoneNumber(auth, phone, appVerifier);
+};
+
+4️⃣ OTP Verify Code
+export const verifyOTP = async (otp: string, confirmationResult: any) => {
+  return confirmationResult.confirm(otp);
+};
+
+🧪 Testing Plan
+Test Case	Expected Result
+Enter valid phone number	OTP sent successfully
+Wrong OTP	Error message shown
+Refresh and login again	No crash & login required again
+Rapid OTP request	Block after threshold
+📌 Success Metrics
+
+Error auth/invalid-api-key resolved
+
+100% login success using phone OTP
+
+User stored in Firebase Authentication dashboard
+
+No console runtime auth-errors

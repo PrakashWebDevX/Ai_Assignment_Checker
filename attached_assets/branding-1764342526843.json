@@ -1,0 +1,125 @@
+{
+  "colorScheme": "dark",
+  "fonts": [
+    {
+      "family": "SFMono-Regular",
+      "role": "monospace"
+    },
+    {
+      "family": "Menlo",
+      "role": "monospace"
+    },
+    {
+      "family": "Monaco",
+      "role": "monospace"
+    },
+    {
+      "family": "Consolas",
+      "role": "monospace"
+    },
+    {
+      "family": "Fira Code",
+      "role": "monospace"
+    }
+  ],
+  "colors": {
+    "primary": "#004182",
+    "accent": "#00A63E",
+    "background": "#000000",
+    "textPrimary": "#000000",
+    "link": "#00A63E"
+  },
+  "typography": {
+    "fontFamilies": {
+      "primary": "SFMono-Regular",
+      "heading": "SFMono-Regular"
+    },
+    "fontStacks": {
+      "heading": [
+        "Space Mono",
+        "monospace"
+      ],
+      "body": [
+        "Fira Code",
+        "monospace"
+      ],
+      "paragraph": [
+        "ui-monospace",
+        "SFMono-Regular",
+        "Menlo",
+        "Monaco",
+        "Consolas",
+        "Liberation Mono",
+        "Courier New",
+        "monospace"
+      ]
+    },
+    "fontSizes": {
+      "h1": "96px",
+      "h2": "96px",
+      "body": "20px"
+    }
+  },
+  "spacing": {
+    "baseUnit": 4,
+    "borderRadius": "0px"
+  },
+  "components": {
+    "input": {
+      "borderColor": "#CCCCCC",
+      "borderRadius": "0px"
+    },
+    "buttonPrimary": {
+      "background": "#00A63E",
+      "textColor": "#000000",
+      "borderColor": "#05DF72",
+      "borderRadius": "4px",
+      "shadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 255, 0, 0.4) 0px 0px 15px 0px"
+    },
+    "buttonSecondary": {
+      "background": "#000000",
+      "textColor": "#05DF72",
+      "borderColor": "#003C18",
+      "borderRadius": "4px",
+      "shadow": "none"
+    }
+  },
+  "images": {
+    "logo": "File saved at: attached_assets/logo.svg",
+    "favicon": "https://1434d4a2-5252-4a5c-a189-ff9bbf4ff939-00-gkzm752kc9o0.worf.replit.dev/favicon.png",
+    "ogImage": "File saved at: attached_assets/ogImage.png"
+  },
+  "__framework_hints": [],
+  "__llm_logo_reasoning": {
+    "selectedIndex": 0,
+    "reasoning": "Logo #0 is in the header and links to the homepage, making it the primary brand logo. It visually represents the brand name 'AI Assignment Checker'.",
+    "confidence": 0.9
+  },
+  "__llm_button_reasoning": {
+    "primary": {
+      "index": 0,
+      "text": "Initiate Scan",
+      "reasoning": "Button #0 has a vibrant green background (#00A63E), which is a strong indicator for a primary call-to-action. The text 'Initiate Scan' is action-oriented, making it the main CTA."
+    },
+    "secondary": {
+      "index": 1,
+      "text": "[ LOAD_SAMPLE_DATA ]",
+      "reasoning": "Button #1 has a dark background (#000000), which is less prominent compared to the vibrant green of Button #0. It serves as a secondary action with the text '[ LOAD_SAMPLE_DATA ]', which is less action-oriented than the primary button."
+    },
+    "confidence": 0.95
+  },
+  "personality": {
+    "tone": "modern",
+    "energy": "medium",
+    "targetAudience": "students and educators using AI for assignments"
+  },
+  "designSystem": {
+    "framework": "tailwind",
+    "componentLibrary": null
+  },
+  "confidence": {
+    "buttons": 0.95,
+    "colors": 0.9,
+    "overall": 0.925
+  }
+}

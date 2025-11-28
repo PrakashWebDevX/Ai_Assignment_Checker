@@ -1,0 +1,88 @@
+✨ Step-1 — Replace full firebase.ts with this
+// firebase.ts
+import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
+
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "",
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "",
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || "",
+};
+
+// Validate config before initializing
+Object.entries(firebaseConfig).forEach(([key, value]) => {
+  if (!value) console.warn(`⚠ Missing Firebase Config: ${key}`);
+});
+
+export const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const googleProvider = new GoogleAuthProvider();
+
+
+🟡 If any config value missing, console log will clearly show it.
+
+✨ Step-2 — Replit → Secrets (Environment Variables)
+
+Add exactly these names (copy + paste 🧩)
+
+VITE_FIREBASE_API_KEY
+VITE_FIREBASE_AUTH_DOMAIN
+VITE_FIREBASE_PROJECT_ID
+VITE_FIREBASE_STORAGE_BUCKET
+VITE_FIREBASE_MESSAGING_SENDER_ID
+VITE_FIREBASE_APP_ID
+
+
+Values — from Firebase:
+
+Firebase Console →
+⚙️ Project Settings → General → Your Apps — Web
+
+Click: </> icon → Config → Copy these
+
+⚠️ Don't miss even 1 value
+⚠️ No quotes needed
+
+✨ Step-3 — Restart Build (Very Important)
+npm install
+npm run dev
+
+
+or Replit → Stop → Run again
+
+Then refresh browser using: Ctrl + Shift + R
+(to clear cached build)
+
+✨ Step-4 — Firebase Domain Whitelist
+
+Firebase Console →
+Authentication → Settings → Authorized Domains
+
+Add:
+
+localhost
+127.0.0.1
+replit.dev
+*.repl.co
+
+🧪 Testing
+Action	Expected
+Click "Sign in with Google"	Google popup opens
+Login success	Redirect → Dashboard/Scan Page
+Refresh app	Session continues
+🔍 Debug Help (If still not working)
+
+Open browser console → Check logs:
+
+⚠ Missing Firebase Config: ... → Which key missing?
+
+Tell me:
+
+Which key shows warning?
+
+Your project name (ID only)
+
+Replit Secret screenshot (hide full key)

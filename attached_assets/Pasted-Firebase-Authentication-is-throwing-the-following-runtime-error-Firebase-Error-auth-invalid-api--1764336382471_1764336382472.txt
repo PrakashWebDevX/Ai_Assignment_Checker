@@ -1,0 +1,80 @@
+Firebase Authentication is throwing the following runtime error:
+
+Firebase: Error (auth/invalid-api-key)
+
+
+This error occurs during Google Authentication initialization in:
+
+client/src/lib/firebase.ts
+
+📍 Root Cause:
+
+The Firebase Web App Config values (API Key & other required identifiers) are missing or incorrectly loaded from Vite environment variables.
+
+Vite requires environment variables to begin with:
+
+VITE_
+
+
+If any Firebase config value is empty → Firebase fails to initialize.
+
+🎯 Goal (Definition of Done)
+
+✔ Firebase Authentication initializes without errors
+✔ Google Login works in Replit & local environment
+✔ All API Keys are securely loaded via Replit Secrets
+✔ Required Firebase domains are authorized
+✔ No more auth/invalid-api-key errors in browser console
+
+🛠 Required Fixes — Implementation Plan
+Step 1 — Add correct Firebase Web App Config
+
+Retrieve from Firebase Console → Project Settings → General → Web App
+
+Store the exact values in Replit Secrets:
+
+Key	Value
+VITE_FIREBASE_API_KEY	🔑 firebase apiKey
+VITE_FIREBASE_AUTH_DOMAIN	firebase authDomain
+VITE_FIREBASE_PROJECT_ID	firebase projectId
+VITE_FIREBASE_STORAGE_BUCKET	firebase storageBucket
+VITE_FIREBASE_MESSAGING_SENDER_ID	firebase messagingSenderId
+VITE_FIREBASE_APP_ID	firebase appId
+
+⚠ No quotes
+⚠ Must match Firebase names exactly
+⚠ All 6 must exist
+
+Step 2 — Add Authorized Domains
+
+Firebase Console → Authentication → Settings → Authorized Domains
+
+Add:
+
+localhost
+127.0.0.1
+repl.co
+replit.dev
+<your-replit-project-name>.id.repl.co  (if shown)
+
+Step 3 — Force Rebuild Frontend
+
+Otherwise old config remains cached
+
+Stop App ▶
+Run App ▶
+Ctrl + Shift + R to refresh browser
+
+Step 4 — Verification Checklist
+
+✔ No API warnings in console
+✔ Firebase initialized successfully
+✔ Google OAuth popup appears
+✔ getAuth(app) returns valid instance
+✔ auth/invalid-api-key error resolved
+
+📌 Acceptance Criteria
+Check	Pass Condition
+Firebase keys are securely loaded	Verified by console.log(import.meta.env)
+App connects to Firebase auth	Google popup opens
+Error disappears completely	No auth errors under Network / Console Tab

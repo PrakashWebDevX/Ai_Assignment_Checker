@@ -1,0 +1,153 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme inline {
+  --color-background: hsl(120 100% 2%);
+  --color-foreground: hsl(120 100% 80%);
+  
+  --color-primary: hsl(120 100% 50%);
+  --color-primary-foreground: hsl(0 0% 0%);
+  
+  --color-secondary: hsl(120 50% 10%);
+  --color-secondary-foreground: hsl(120 100% 50%);
+  
+  --color-card: hsl(120 50% 3% / 0.8);
+  --color-card-foreground: hsl(120 100% 80%);
+  
+  --color-muted: hsl(120 30% 10%);
+  --color-muted-foreground: hsl(120 40% 50%);
+  
+  --color-accent: hsl(120 100% 20%);
+  --color-accent-foreground: hsl(120 100% 90%);
+  
+  --color-border: hsl(120 100% 20%);
+  --color-input: hsl(120 100% 10%);
+  
+  --font-sans: "Fira Code", monospace; /* Tech/Code look */
+  --font-heading: "Space Mono", monospace;
+  
+  --radius-xl: 0.5rem;
+  --radius-2xl: 0.75rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply font-sans antialiased bg-background text-foreground overflow-x-hidden;
+    background-color: black;
+  }
+}
+
+@layer utilities {
+  .matrix-bg {
+    background-image: linear-gradient(0deg, transparent 24%, rgba(0, 255, 0, .05) 25%, rgba(0, 255, 0, .05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 0, .05) 75%, rgba(0, 255, 0, .05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(0, 255, 0, .05) 25%, rgba(0, 255, 0, .05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 0, .05) 75%, rgba(0, 255, 0, .05) 76%, transparent 77%, transparent);
+    background-size: 50px 50px;
+  }
+
+  .glass-panel {
+    @apply bg-black/80 backdrop-blur-md border border-primary/30 shadow-[0_0_15px_rgba(0,255,0,0.1)];
+  }
+  
+  .text-gradient-matrix {
+    @apply bg-clip-text text-transparent bg-linear-to-r from-green-400 via-green-500 to-emerald-600;
+  }
+  
+  .neon-glow-green {
+    box-shadow: 0 0 10px theme('colors.green.500'), 0 0 20px theme('colors.green.500');
+  }
+
+  /* Neon Wave Animation */
+  .neon-wave {
+    position: relative;
+    animation: neon-wave-glow 2s ease-in-out infinite;
+    text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+  }
+  
+  @keyframes neon-wave-glow {
+    0% {
+      text-shadow: 
+        0 0 10px #00ff00,
+        0 0 20px #00ff00,
+        0 0 30px #00ff00,
+        0 0 40px rgba(0, 255, 0, 0.5);
+    }
+    50% {
+      text-shadow: 
+        0 0 15px #00ff00,
+        0 0 30px #00ff00,
+        0 0 50px #00ff00,
+        0 0 70px rgba(0, 255, 0, 0.8);
+      transform: scale(1.02);
+    }
+    100% {
+      text-shadow: 
+        0 0 10px #00ff00,
+        0 0 20px #00ff00,
+        0 0 30px #00ff00,
+        0 0 40px rgba(0, 255, 0, 0.5);
+    }
+  }
+
+  /* Glitch Animation (kept for backward compatibility) */
+  .glitch {
+    position: relative;
+  }
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+  }
+  .glitch::before {
+    left: 2px;
+    text-shadow: -1px 0 #00ff00;
+    clip: rect(24px, 550px, 90px, 0);
+    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+  }
+  .glitch::after {
+    left: -2px;
+    text-shadow: -1px 0 #ff00ff;
+    clip: rect(85px, 550px, 140px, 0);
+    animation: glitch-anim 2.5s infinite linear alternate-reverse;
+  }
+  
+  @keyframes glitch-anim {
+    0% { clip: rect(10px, 9999px, 30px, 0); }
+    20% { clip: rect(80px, 9999px, 100px, 0); }
+    40% { clip: rect(20px, 9999px, 60px, 0); }
+    60% { clip: rect(50px, 9999px, 70px, 0); }
+    80% { clip: rect(90px, 9999px, 110px, 0); }
+    100% { clip: rect(30px, 9999px, 50px, 0); }
+  }
+  @keyframes glitch-anim-2 {
+    0% { clip: rect(60px, 9999px, 80px, 0); }
+    20% { clip: rect(10px, 9999px, 30px, 0); }
+    40% { clip: rect(90px, 9999px, 110px, 0); }
+    60% { clip: rect(30px, 9999px, 50px, 0); }
+    80% { clip: rect(70px, 9999px, 90px, 0); }
+    100% { clip: rect(20px, 9999px, 40px, 0); }
+  }
+
+  /* Scanline */
+  .scanline {
+    width: 100%;
+    height: 100px;
+    z-index: 10;
+    background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0, 255, 0, 0.1) 50%, rgba(0,0,0,0) 100%);
+    opacity: 0.1;
+    position: absolute;
+    bottom: 100%;
+    animation: scanline 10s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes scanline {
+    0% { bottom: 100%; }
+    100% { bottom: -100%; }
+  }
+}
